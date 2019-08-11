@@ -1,4 +1,4 @@
-function [J, grad] = costFunction(theta, X, y)
+function [J, grad] = costFunctionReg(theta, X, y, lambda)
     % m = 20
     m = length(y); % number of training examples
     #
@@ -21,7 +21,12 @@ function [J, grad] = costFunction(theta, X, y)
     
     parts_diff  = part_1 - part_2; % (1x1)
 
-    J = 1/m * parts_diff; % (1x1)
+    # theta_1: without zero component.
+    theta_1 = theta(2:end)
+
+    cost_regularization_term = (lambda/(2 * m)) * sum(theta_1.^2) # (1x1)
+
+    J = 1/m * parts_diff + cost_regularization_term; % (1x1)
     # =======================================================
     #
     #
@@ -32,7 +37,12 @@ function [J, grad] = costFunction(theta, X, y)
     %            (mx1)    (mx1)
     y_error = y_predicted - y; % (mx1)
 
+    # theta_2: Replace first comonent to zero.
+    theta_2 = [0; theta(2:end)]
+
+    gradient_regularization_term = (lambda / m) * theta_2 # (3x1)
+
     %            (3xm)    (mx1)
-    grad = 1/m * ( X'  * y_error); % (3x1)
+    grad = 1/m * ( X'  * y_error) + gradient_regularization_term; % (3x1)
     # =======================================================
 end
