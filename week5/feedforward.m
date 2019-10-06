@@ -1,4 +1,4 @@
-function [h_theta] = feedforward(Theta1, Theta2, X, y)
+function [a3] = feedforward(Theta1, Theta2, X, y)
     m = size(X, 1);
 
     % Add ones first column to X data matrix
@@ -18,5 +18,5 @@ function [h_theta] = feedforward(Theta1, Theta2, X, y)
     %    (5000x26)(26X10)    
     z3 =     a2  *  Theta2'; % (5000x10)
 
-    h_theta = sigmoid(z3); % (5000x10)
+    a3 = sigmoid(z3); % (5000x10)
 end
