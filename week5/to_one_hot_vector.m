@@ -1,8 +1,7 @@
-function [y] = to_one_hot_vector(labels, column_size)
-    y = zeros(size(labels), column_size);
+function [yr] = to_one_hot_vector(y, num_labels)
+    yr = zeros(size(y), num_labels);
 
-    for label_index = 1:size(labels)
-        one_hot_vector = [1:column_size] == labels(label_index);
-        y(label_index, :) = one_hot_vector;
-    endfor
+    for i = 1:size(y)
+        yr(i, y(i)) = 1;
+    end
 end
