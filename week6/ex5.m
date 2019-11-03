@@ -164,7 +164,7 @@ fprintf('\nProgram paused. Press enter to continue.\n');
 %  lambda to see how the fit and learning curve change.
 %
 
-lambda = 0;
+lambda = 1;
 [theta] = trainLinearReg(X_poly, y, lambda);
 
 % Plot training data and fit
@@ -217,4 +217,22 @@ for i = 1:length(lambda_vec)
 end
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+# pause;
+#
+#
+#
+#
+#
+#
+#
+# --------------------------------------------------------------------------------------
+# Extra: Plot error over test set
+# --------------------------------------------------------------------------------------
+[min_val_error, min_val_error_lambda] = min(error_val, [], 1);
+fprintf('\n\nBest lambda hiper-parameter value: %d (Val error: %f).\n', min_val_error_lambda, min_val_error);
+
+# Train with best lambda value...
+best_theta = trainLinearReg([ones(m, 1) X], y, lambda);
+test_m = size(Xtest, 1);
+test_error = linearRegCostFunction([ones(test_m, 1) Xtest], ytest, best_theta, 0);
+test_error
