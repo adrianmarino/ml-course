@@ -9,6 +9,10 @@ function [bestEpsilon bestF1] = selectThreshold(yval, pval)
         fp = sum((yval == 0) & (pval < epsilon));
         fn = sum((yval == 1) & (pval >= epsilon));
 
+        if (tp + fp == 0 || tp + fn == 0)
+            continue
+        end
+        
         prec = tp / (tp + fp);
         rec = tp / (tp + fn);
         F1 = (2 * prec * rec) / (prec + rec);
